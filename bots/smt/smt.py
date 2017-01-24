@@ -98,7 +98,9 @@ class Bot:
         kb = KB()
 
         # Add clauses
-        ???
+        kb.add_clause(v < a)
+        kb.add_clause(v > b)
+        kb.add_clause(v == m - h)
 
         sat = kb.satisfiable()
 

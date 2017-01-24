@@ -9,7 +9,7 @@ import random, os
 
 from sklearn.externals import joblib
 
-DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/model.pkl'
+DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/extra-features-model.pkl'
 
 class Bot:
 
@@ -58,7 +58,8 @@ class Bot:
 
         for move in moves:
 
-            value ???
+            next_state = state.next(move)
+            value, m = self.value(next_state, alpha, beta, depth + 1)
 
             if maximizing(state):
                 if value > best_value:
@@ -73,7 +74,7 @@ class Bot:
 
             # Prune the search tree
             # We know this state will never be chosen, so we stop evaluating its children
-            if ???:
+            if alpha < beta:
                 break
 
         return best_value, best_move
@@ -114,18 +115,36 @@ def features(state):
     :return: A tuple of floats: a feature vector representing this state.
     """
 
+    my_id = state.whose_turn()
+    opponent_id = 1 if my_id == 0 else 0
+
     # How many ships does p1 have in garrisons?
     p1_garrisons = 0.0
     # How many ships does p2 have in garrisons?
     p2_garrisons = 0.0
 
-    ???
+    p1_planets = 0
+    p2_planets = 0
+
+    for planet in state.planets(my_id):
+        p1_garrisons += state.garrison(planet)
+        p1_planets += 1
+
+    for planet in state.planets(opponent_id):
+        p2_garrisons += state.garrison(planet)
+        p2_planets += 1
+
 
     # How many ships does p1 have in fleets?
     p1_fleets = 0.0
     # How many ships does p2 have in fleets?
     p2_fleets = 0.0
 
-    ???
 
-    return p1_garrisons, p2_garrisons, p1_fleets, p2_fleets
+    for fleet in state.fleets():
+        if fleet.owner() == my_id:
+            p1_fleets = fleet.size()
+        else:
+            p2_fleets += fleet.size()
+
+    return p1_garrisons, p2_garrisons, p1_fleets, p2_fleets, p1_planets, p2_planets
