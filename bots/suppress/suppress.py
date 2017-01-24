@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-SuppressBot - It essentially a form of suppressing fire to swamp only the enemy, works particularly well
+SuppressBot - It essentially does a form of suppress fire to swamp only the enemy, works particularly well
 as a form of defence. For instance, minimax and alphabeta decide that the best choice is to not make
 a move at all, resulting in some sort of equilibrium where the game results in a draw.
 """

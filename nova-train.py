@@ -25,7 +25,6 @@ NOTIFY_AMOUNT = 50
 
 
 def main():
-
     pool = multiprocessing.Pool(processes=args.parallelism)
 
     bots = []
@@ -50,7 +49,7 @@ def main():
             else:
                 result = 'draw'
 
-            data  += state_vectors
+            data += state_vectors
             target += [result] * len(state_vectors)
 
             log("({}:{} | {}:{}): {}".format(bid, mid, map_size, seed, result), lvl=1)

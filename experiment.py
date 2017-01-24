@@ -16,29 +16,29 @@ combination. We plot the resulrts in a heat map
 
 """
 import matplotlib as mpl
+
 mpl.use('Agg')
 from matplotlib import pyplot as plt
 from api import State
 
 import random
 
+
 # Define the bot:
 # (we're not using it with the command line tools, so we can just put it here)
 class Bot:
-
     # Probability of not moving
     __nomove = 0.0
+
     def __init__(self, nomove=0.0):
         self.__nomove = nomove
 
     def get_move(self, state):
-
         if random.random() < self.__nomove:
-
             # IMPLEMENT: Make no move
             pass
 
-        #IMPLEMENT: Make a random move (but not None).
+        # IMPLEMENT: Make a random move (but not None).
         pass
 
 
@@ -48,6 +48,7 @@ def empty(n):
     :return: n by n matrix (2D array) filled with 0s
     """
     return [[0 for i in range(n)] for j in range(n)]
+
 
 # For experiments, it's good to have repeatability, so we set the seed of the random number generator to a known value.
 # That way, if something interesting happens, we can always rerun the exact same experiment
@@ -60,7 +61,7 @@ STEPS = 10
 REPEATS = 5
 MAX_TURNS = 100
 
-inc = 1.0/STEPS
+inc = 1.0 / STEPS
 
 # Make empty matrices to count how many times each player won for a given
 # combination of parameters
@@ -96,7 +97,6 @@ for i in range(STEPS):
 
         print('finished {} vs {}'.format(inc * i, inc * j))
 
-
 # This
 result = [[0 for i in range(STEPS)] for j in range(STEPS)]
 
@@ -112,11 +112,11 @@ for i in range(STEPS):
 # Plot the data as a heatmap
 plt.imshow(
     result,
-    extent=(0,1,0,1), # fit it to the square from (0,0) to (1,1)
-    vmin=-extreme,    # give this value the lowest color (blue)
-    vmax=extreme,     # give this value the higest color (red)
-    interpolation='nearest', # don't smooth the colors
-    origin='lower')          # put the rsult[0][0] in the bottem left corner
+    extent=(0, 1, 0, 1),  # fit it to the square from (0,0) to (1,1)
+    vmin=-extreme,  # give this value the lowest color (blue)
+    vmax=extreme,  # give this value the higest color (red)
+    interpolation='nearest',  # don't smooth the colors
+    origin='lower')  # put the rsult[0][0] in the bottem left corner
 
 # Always label your axes
 plt.xlabel('player 1 nomove probability')
