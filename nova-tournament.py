@@ -166,7 +166,7 @@ def optparse():
                         metavar="player",
                         help="Players for the game",
                         type=str, nargs='*',
-                        default=["rand", "bully", "rdeep"])
+                        default=["suppress", "bully", "rdeep"])
 
     parser.add_argument("-P", "--pool-size",
                         dest="parallelism",
