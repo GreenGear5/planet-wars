@@ -11,6 +11,8 @@ from api import State, util
 
 from bots.ml.ml import features
 
+from bots.rand import rand
+
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 colors = {
     'SUCCESS': GREEN,
@@ -19,6 +21,7 @@ colors = {
     'FAIL': RED
 }
 
+# How many games to play
 args = None
 
 NOTIFY_AMOUNT = 50
