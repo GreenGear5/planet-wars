@@ -89,8 +89,15 @@ def generate_model(data, target):
         count[str] += 1
 
     log("Instances per class: {}".format(count))
-    joblib.dump(model, args.model)
-    log("Done", type="SUCCESS")
+
+    try:
+        joblib.dump(model, args.model, compress=True)
+    except IOError as e:
+        log("Failed to dump model: "+args.model, type="FAIL")
+        print e
+        return
+
+    log("Done. Model saved at: "+args.model, type="SUCCESS")
 
 
 def gen_rounds(bots):
