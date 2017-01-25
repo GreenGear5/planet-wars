@@ -1,6 +1,7 @@
 import argparse
 import multiprocessing
 import multiprocessing.pool
+import os
 import sys
 import random
 
@@ -89,7 +90,8 @@ def generate_model(data, target):
         count[str] += 1
 
     log("Instances per class: {}".format(count))
-    joblib.dump(model, args.model)
+    log("Model written to: " + args.model, type='INFO')
+    joblib.dump(model, args.model, compress=True)
     log("Done", type="SUCCESS")
 
 

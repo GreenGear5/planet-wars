@@ -27,14 +27,12 @@ class Bot:
         elif my_id == 2:
             enemy_id = 1
 
-        # Our move: these will contain Planet objects
-        source = random.choice(state.planets(my_id))  # Pick randomly from our planets.
         try:
+            # Our move: these will contain Planet objects
+            source = random.choice(state.planets(my_id))  # Pick randomly from our planets.
             dest = random.choice(state.planets(enemy_id))  # Pick randomly from their planets.
         except:
             return None
 
-        if source is None or dest is None:
-            return None
         # Keep in mind, we never fire at neutrals since they don't pose immediate danger.
         return source.id(), dest.id()
