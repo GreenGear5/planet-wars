@@ -5,11 +5,10 @@ A basic adaptive bot. This is part of the second worksheet.
 """
 
 from api import State, util
-import random, os
+import random, os, sys
 
 from sklearn.externals import joblib
-
-DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/extra-features-model.pkl'
+DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/' + sys.argv[4] +'-model.pkl' #This works
 
 class Bot:
 
