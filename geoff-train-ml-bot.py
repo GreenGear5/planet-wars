@@ -5,21 +5,14 @@ Every observed state is converted to a feature vector and labeled with the event
 
 This is part of the second worksheet.
 """
-from api import State, util
-
-# This package contains various machine learning algorithms
 import sys
-import sklearn
+
 import sklearn.linear_model
 from sklearn.externals import joblib
 
+from api import State
+from bots.geoffml.geoffml import features
 from bots.rand import rand
-# from bots.alphabeta import alphabeta
-from bots.ml import ml
-
-from bots.ml.geoffml import features
-
-import matplotlib.pyplot as plt
 
 # How many games to play
 GAMES = 1000
