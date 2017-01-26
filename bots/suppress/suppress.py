@@ -28,10 +28,11 @@ class Bot:
             enemy_id = 1
 
         # Our move: these will contain Planet objects
-        source = random.choice(state.planets(my_id))  # Pick randomly from our planets.
+
         try:
+            source = random.choice(state.planets(my_id))  # Pick randomly from our planets.
             dest = random.choice(state.planets(enemy_id))  # Pick randomly from their planets.
-        except:
+        except IndexError:
             return None
 
         if source is None or dest is None:
