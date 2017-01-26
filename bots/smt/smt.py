@@ -89,18 +89,35 @@ class Bot:
         Check whether the current state contradicts our knowledge.
         (The knowledge base describes what properties a state should satisfy  to be explored)
         """
-        v = Integer("v") # the heuristic value when the maximu m depth is reached
-        a = Integer("a") # alpha
-        b = Integer("b") # beta
-        m = Integer("m") # how many ships player one will have (when the heuristic is computed)
-        h = Integer("h") # how many ships player two will have
+        v = Integer("v")  # the heuristic value when the maximum depth is reached
+        a = Integer("a")  # alpha
+        b = Integer("b")  # beta
+        m = Integer("m")  # how many ships player one will have (when the heuristic is computed)
+        h = Integer("h")  # how many ships player two will have
 
         kb = KB()
 
+        c = v < b
+        d = v > a
+        e = v - m + h == 0
+        # um = m < count_ships(state,1) + count_planets(state,1)
+        lm = m > count_ships(state, 1) - count_fleet(state, 1)
+        # uh = h < count_ships(state,2) + count_planets(state,2)
+        lh = h > count_ships(state, 1) - count_fleet(state, 2)
+        um = m < count_ships(state, 1) + int(round(count_planets(state, 1) * count_planet_sizes(state, 1)))
+        uh = h < count_ships(state, 2) + int(round(count_planets(state, 2) * count_planet_sizes(state, 2)))
+        # lm = m >
+        # lh = h >
+
         # Add clauses
-        kb.add_clause(v < a)
-        kb.add_clause(v > b)
-        kb.add_clause(v == m - h)
+
+        kb.add_clause(c)
+        kb.add_clause(d)
+        kb.add_clause(e)
+        kb.add_clause(um)
+        kb.add_clause(lm)
+        kb.add_clause(uh)
+        kb.add_clause(lh)
 
         sat = kb.satisfiable()
 
@@ -135,4 +152,47 @@ def count_ships(state, player):
     for fleet in state.fleets():
         if fleet.owner() == player:
             sum += fleet.size()
+    return sum
+
+
+def count_fleet(state, player):
+    # type: (State, int) -> int
+    '''
+    :param state: A game state
+    :param player: a player id
+    :return: Counts the number of ships in the game state (in fleets) belonging to the given player.
+    '''
+
+    sum = 0
+
+    for fleet in state.fleets():
+        if fleet.owner() == player:
+            sum += fleet.size()
+    return sum
+
+def count_planets(state, player):
+    # type: (State, int) -> int
+    '''
+    :param state: A game state
+    :param player: a player id
+    :return: Counts the number of ships in the game state (in fleets and planets) belonging to the given player.
+    '''
+
+    sum = 0
+
+    for planet in state.planets(player):
+        sum += 1
+    return sum
+
+def count_planet_sizes(state,player):
+    # type: (State, int) -> int
+    '''
+    :param state: A game state
+    :param player: a player id
+    :return: Counts the number of ships in the game state (in fleets and planets) belonging to the given player.
+    '''
+    sum = 0
+
+    for planet in state.planets(player):
+        sum += planet.size()
     return sum
