@@ -38,8 +38,7 @@ class Bot:
 
         # All legal moves
         moves = state.moves()
+        # print moves
 
         # Return a random choice
         return random.choice(moves)
-
-        state.planets()
