@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-A basic adaptive bot. This is part of the second worksheet.
+Uses Stochastic Gradient Descent.
 
 """
 
@@ -9,7 +9,7 @@ import random, os
 
 from sklearn.externals import joblib
 
-DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/randregular-model.pkl'
+DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/sgd-rand-model.pkl'
 
 class Bot:
 
@@ -74,7 +74,7 @@ class Bot:
 
             # Prune the search tree
             # We know this state will never be chosen, so we stop evaluating its children
-            if alpha < beta:
+            if alpha <= beta:
                 break
 
         return best_value, best_move
@@ -84,18 +84,16 @@ class Bot:
         feature_vector = [features(state)]
 
         # These are the classes: ('won', 'lost')
-        classes = list(self.__model.classes_)
 
         # Ask the model for a prediction
         # This returns a probability for each class
-        prob = self.__model.predict_proba(feature_vector)[0]
-        # print('{} {} {}'.format(classes, prob, util.ratio_ships(state, 1)))
-
-        # Weigh the win/loss outcomes (-1 and 1) by their probabilities
-        res = -1.0 * prob[classes.index('lost')] + 1.0 * prob[classes.index('won')]
-        # print(res)
-
-        return res
+        prob = self.__model.predict(feature_vector)
+        if prob=='won':
+            return 1
+        elif prob=='lost':
+            return -1
+        else:
+            return 0
 
 def maximizing(state):
     """
