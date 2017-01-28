@@ -11,6 +11,8 @@ from api import State, util
 
 from bots.ml.ml import features
 
+from bots.rand import rand
+
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 colors = {
     'SUCCESS': GREEN,
@@ -19,6 +21,7 @@ colors = {
     'FAIL': RED
 }
 
+# How many games to play
 args = None
 
 NOTIFY_AMOUNT = 50
@@ -86,8 +89,15 @@ def generate_model(data, target):
         count[str] += 1
 
     log("Instances per class: {}".format(count))
-    joblib.dump(model, args.model)
-    log("Done", type="SUCCESS")
+
+    try:
+        joblib.dump(model, args.model, compress=True)
+    except IOError as e:
+        log("Failed to dump model: "+args.model, type="FAIL")
+        print e
+        return
+
+    log("Done. Model saved at: "+args.model, type="SUCCESS")
 
 
 def gen_rounds(bots):
