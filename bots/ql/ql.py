@@ -9,7 +9,7 @@ import random, os
 
 from sklearn.externals import joblib
 
-DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/geoff-model.pkl'
+DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/randregular-model.pkl'
 
 class Bot:
 
@@ -118,35 +118,33 @@ def features(state):
     my_id = state.whose_turn()
     opponent_id = 1 if my_id == 0 else 0
 
-
     # How many ships does p1 have in garrisons?
-    # p1_garrisons = 0.0
+    p1_garrisons = 0.0
     # How many ships does p2 have in garrisons?
-    # p2_garrisons = 0.0
+    p2_garrisons = 0.0
 
-    # p1_planets = 0
-    # p2_planets = 0
+    p1_planets = 0
+    p2_planets = 0
 
-    # for planet in state.planets(my_id):
-    #     p1_garrisons += state.garrison(planet)
-    #     p1_planets += 1
-    #
-    # for planet in state.planets(opponent_id):
-    #     p2_garrisons += state.garrison(planet)
-    #     p2_planets += 1
+    for planet in state.planets(my_id):
+        p1_garrisons += state.garrison(planet)
+        p1_planets += 1
+
+    for planet in state.planets(opponent_id):
+        p2_garrisons += state.garrison(planet)
+        p2_planets += 1
 
 
     # How many ships does p1 have in fleets?
-    # p1_fleets = 0.0
-    # # How many ships does p2 have in fleets?
-    # p2_fleets = 0.0
+    p1_fleets = 0.0
+    # How many ships does p2 have in fleets?
+    p2_fleets = 0.0
 
 
-    # for fleet in state.fleets():
-    #     if fleet.owner() == my_id:
-    #         p1_fleets = fleet.size()
-    #     else:
-    #         p2_fleets += fleet.size()
+    for fleet in state.fleets():
+        if fleet.owner() == my_id:
+            p1_fleets = fleet.size()
+        else:
+            p2_fleets += fleet.size()
 
-    # return p1_garrisons, p2_garrisons, p1_fleets, p2_fleets, p1_planets, p2_planets
-    return
+    return p1_garrisons, p2_garrisons, p1_fleets, p2_fleets, p1_planets, p2_planets
