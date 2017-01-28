@@ -9,7 +9,7 @@ import random, os
 
 from sklearn.externals import joblib
 
-DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/model-1000.pkl'
+DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/model-10000.pkl'
 
 class Bot:
 
