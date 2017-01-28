@@ -159,7 +159,8 @@ def features(state):
     fleets = {
         'owner': [],
         'size': [],
-        'target': [],
+        'targetx': [],
+        'targety': [],
         'distance': []
     }
 
@@ -196,14 +197,18 @@ def features(state):
             fleets['owner'].append(0)
         else:
             fleets['owner'].append(1)
+        target_planet = fleet.target();
+        fleets['targetx'].append(target_planet.coords()[0])
+        fleets['targety'].append(target_planet.coords()[1])
         fleets['size'].append(fleet.size())
-        fleets['target'].append(fleet.target())
+
         fleets['distance'].append(fleet.distance())
 
     while fleets['owner'].__len__() < 12:
         fleets['owner'].append(2)
         fleets['size'].append(0)
-        fleets['target'].append(0)
+        fleets['targetx'].append(0)
+        fleets['targety'].append(0)
         fleets['distance'].append(0)
 
     return planets['owner'][0], planets['owner'][1], planets['owner'][2], \
@@ -226,6 +231,14 @@ def features(state):
            fleets['size'][3], fleets['size'][4], fleets['size'][5], \
            fleets['size'][6], fleets['size'][7], fleets['size'][8], \
            fleets['size'][9], fleets['size'][10], fleets['size'][11], \
+           fleets['targetx'][0], fleets['targetx'][1], fleets['targetx'][2], \
+           fleets['targetx'][3], fleets['targetx'][4], fleets['targetx'][5], \
+           fleets['targetx'][6], fleets['targetx'][7], fleets['targetx'][8], \
+           fleets['targetx'][9], fleets['targetx'][10], fleets['targetx'][11], \
+           fleets['targety'][0], fleets['targety'][1], fleets['targety'][2], \
+           fleets['targety'][3], fleets['targety'][4], fleets['targety'][5], \
+           fleets['targety'][6], fleets['targety'][7], fleets['targety'][8], \
+           fleets['targety'][9], fleets['targety'][10], fleets['targety'][11], \
            fleets['distance'][0], fleets['distance'][1], fleets['distance'][2], \
            fleets['distance'][3], fleets['distance'][4], fleets['distance'][5], \
            fleets['distance'][6], fleets['distance'][7], fleets['distance'][8], \
