@@ -5,14 +5,21 @@ Every observed state is converted to a feature vector and labeled with the event
 
 This is part of the second worksheet.
 """
-import sys
+from api import State, util
 
+# This package contains various machine learning algorithms
+import sys
+import sklearn
 import sklearn.linear_model
 from sklearn.externals import joblib
 
-from api import State
-from bots.geoffml.geoffml import features
 from bots.rand import rand
+# from bots.alphabeta import alphabeta
+from bots.ml import ml
+
+from bots.ml.ml import features
+
+import matplotlib.pyplot as plt
 
 # How many games to play
 GAMES = 1000
@@ -77,7 +84,7 @@ for str in target:
 print('instances per class: {}'.format(count))
 
 # Store the model in the ml directory
-joblib.dump(model, './bots/ml/geoff-model.pkl')
+joblib.dump(model, './bots/ml/model.pkl')
 
 print('Done')
 
