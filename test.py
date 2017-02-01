@@ -22,9 +22,6 @@ p-value : float
 
 """
 
-
-
-
 wins = 550 #number of wins
 losses = 50 # number of losses
 draws = 110 # number of draws
