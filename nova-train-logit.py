@@ -192,7 +192,7 @@ def optparse():
 
     parser.add_argument("model",
                         help="Output file for model",
-                        type=str, default="./bots/ml/model.pkl")
+                        type=str, default="./bots/ml/kr-model.pkl")
 
     parser.add_argument("players",
                         metavar="player",

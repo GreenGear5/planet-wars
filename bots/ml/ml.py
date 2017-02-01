@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-A basic adaptive bot. This is part of the second worksheet.
+Default--uses Logistic Regression classifier
 
 """
 
@@ -11,8 +11,8 @@ from sklearn.externals import joblib
 
 DEFAULT_MODEL = os.path.dirname(os.path.realpath(__file__)) + '/randregular-model.pkl'
 
-class Bot:
 
+class Bot:
     __max_depth = -1
     __randomize = True
 
@@ -33,7 +33,7 @@ class Bot:
 
         return move
 
-    def value(self, state, alpha=float('-inf'), beta=float('inf'), depth = 0):
+    def value(self, state, alpha=float('-inf'), beta=float('inf'), depth=0):
         """
         Return the value of this state and the associated move
         :param state:
@@ -97,6 +97,7 @@ class Bot:
 
         return res
 
+
 def maximizing(state):
     """
     Whether we're the maximizing player (1) or the minimizing player (2).
@@ -134,12 +135,10 @@ def features(state):
         p2_garrisons += state.garrison(planet)
         p2_planets += 1
 
-
     # How many ships does p1 have in fleets?
     p1_fleets = 0.0
     # How many ships does p2 have in fleets?
     p2_fleets = 0.0
-
 
     for fleet in state.fleets():
         if fleet.owner() == my_id:

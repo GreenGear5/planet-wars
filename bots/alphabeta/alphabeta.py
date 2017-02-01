@@ -12,7 +12,7 @@ class Bot:
     __max_depth = -1
     __randomize = True
 
-    def __init__(self, randomize=True, depth=4):
+    def __init__(self, randomize=True, depth=12):
         self.__randomize = randomize
         self.__max_depth = depth
 

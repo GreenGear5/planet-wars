@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Uses a Perceptron
+Uses the multilayer Perceptron classifier
 
 """
 
@@ -84,24 +84,18 @@ class Bot:
         feature_vector = [features(state)]
 
         # These are the classes: ('won', 'lost')
+        classes = list(self.__model.classes_)
 
         # Ask the model for a prediction
         # This returns a probability for each class
-        # Ask the model for a prediction
-        # This returns a probability for each class
-        prob = self.__model.predict(feature_vector)
-        if prob=='won':
-            return 1
-        elif prob=='lost':
-            return -1
-        else:
-            return 0
+        prob = self.__model.predict_proba(feature_vector)[0]
+        # print prob
         # print('{} {} {}'.format(classes, prob, util.ratio_ships(state, 1)))
 
         # Weigh the win/loss outcomes (-1 and 1) by their probabilities
-        # res = -1.0 * prob[1] + 1.0 * prob[2]
-        #
-        # return res
+        res = -1.0 * prob[classes.index('lost')] + 1.0 * prob[classes.index('won')]
+
+        return res
 
 def maximizing(state):
     """
